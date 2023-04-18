@@ -1,0 +1,76 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="cityData"
+            type="com.example.weatherly.rest.model.data_class.CityResponse.CityResponseItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/weather_icon_desc"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_weather"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/weather_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{cityData.name}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/weather_state"
+            app:layout_constraintStart_toEndOf="@+id/weather_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{cityData.state}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/weather_country"
+            app:layout_constraintStart_toEndOf="@+id/weather_icon"
+            app:layout_constraintTop_toBottomOf="@id/weather_location" />
+
+        <TextView
+            android:id="@+id/weather_country"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{cityData.country}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/weather_icon"
+            app:layout_constraintTop_toBottomOf="@+id/weather_state" />
+        <!--
+                <TextView
+                    android:id="@+id/weather_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22°C"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/weather_icon" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

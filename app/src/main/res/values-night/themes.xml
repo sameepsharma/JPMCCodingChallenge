@@ -1,0 +1,20 @@
+<resources>
+<style name="Theme.Weatherly.Dark" parent="Theme.MaterialComponents.DayNight">
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/blue_grey_700</item>
+    <item name="colorPrimaryVariant">@color/material_blue_grey_800</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <!-- Secondary brand color. -->
+    <item name="colorSecondary">@color/deep_teal_700</item>
+    <item name="colorSecondaryVariant">@color/material_deep_teal_200</item>
+    <item name="colorOnSecondary">@color/white</item>
+    <!-- Status bar color. -->
+    <item name="android:statusBarColor">@color/blue_grey_700</item>
+</style>
+
+<style name="Theme.Weatherly.Dark.NoActionBar" parent="Theme.Weatherly.NoActionBar" />
+
+<style name="Theme.Weatherly.Dark.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+<style name="Theme.Weatherly.Dark.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
+    </resources>
