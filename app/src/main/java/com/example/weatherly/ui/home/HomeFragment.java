@@ -19,6 +19,7 @@ import com.example.weatherly.databinding.FragmentHomeBinding;
 import com.example.weatherly.rest.FetchService;
 import com.example.weatherly.rest.RetrofitProvider;
 import com.example.weatherly.rest.repo.WeatherRepo;
+import com.example.weatherly.rest.utils.UtilsKt;
 import com.sameep.iiflassignment.db.ArticlesDb;
 
 import kotlin.jvm.JvmStatic;
@@ -52,25 +53,22 @@ public class HomeFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
         //binding.setVariable(BR.homeViewModel, homeViewModel);
 
+        if (!UtilsKt.isInternetAvailable(requireContext()))
+            homeViewModel.fetchSavedWeather();
         activityViewModel.observeCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
             homeViewModel.fetchWeather(coordinates);
         });
 
         homeViewModel.getWeatherData().observe(getViewLifecycleOwner(), weatherResponse -> {
-           /* binding.setVariable(BR.weatherData, weatherResponse);
-            binding.setWeatherData(weatherResponse);*/
-            activityViewModel.updateLatlong(weatherResponse.getCoord().getLat(), weatherResponse.getCoord().getLon());
             activityViewModel.updateLoc(weatherResponse.getName()+", "+ weatherResponse.getSys().getCountry());
             binding.invalidateAll();
-            Log.e("WeatherDataReceived::", "ResponseData = " + weatherResponse);
         });
 
         activityViewModel.getLocGeoCode().observe(getViewLifecycleOwner(), cityData -> {
             binding.tvCityCountry.setText(cityData.get(0).getName() + ", " + cityData.get(0).getCountry());
         });
 
-        //final TextView textView = binding.textHome;
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 

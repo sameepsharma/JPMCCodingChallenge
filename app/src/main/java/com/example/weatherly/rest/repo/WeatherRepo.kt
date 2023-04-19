@@ -11,6 +11,8 @@ import com.example.weatherly.rest.model.data_class.WeatherResponse
 import com.example.weatherly.rest.utils.isInternetAvailable
 import com.google.gson.Gson
 import com.sameep.iiflassignment.db.dao.WeatherDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class WeatherRepo(
@@ -27,13 +29,20 @@ class WeatherRepo(
              weatherDao.insertArticles(Data(Gson().toJson(articlesNw!!).toString()))
             return (articlesNw)
         } else {
-            val dbItems = weatherDao.getSavedData()
-            Log.e("REpo ::", "DBItems = $dbItems")
-            if (dbItems.isNotEmpty())
-                return Gson().fromJson(dbItems, WeatherResponse::class.java)
-            else return null
+           getSavedWeather()
         }
 
+    }
+
+    suspend fun getSavedWeather() : WeatherResponse?{
+        var dbItems = ""
+        withContext(Dispatchers.IO){
+            dbItems = weatherDao.getSavedData()
+        }
+        Log.e("REpo ::", "DBItems = $dbItems")
+        if (dbItems.isNotEmpty())
+            return Gson().fromJson(dbItems, WeatherResponse::class.java)
+        else return null
     }
 
     suspend fun getCity(query: String, limit: Byte = 5): CityResponse? {

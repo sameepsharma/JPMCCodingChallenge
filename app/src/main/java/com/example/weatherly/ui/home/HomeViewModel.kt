@@ -30,6 +30,10 @@ class HomeViewModel(val repo: WeatherRepo) : ViewModel() {
 
     }
 
+    fun fetchSavedWeather() {
+        viewModelScope.launch { weatherData.postValue(repo.getSavedWeather()) }
+    }
+
     fun getWeatherData() = weatherData
 
     fun getTempInCelsius() =
