@@ -21,5 +21,6 @@
     <string name="label_visibility">Visibility</string>
     <string name="label_sunrise">Sunrise</string>
     <string name="label_sunset">Sunset</string>
+    <string name="menu_search">Search</string>
 
 </resources>

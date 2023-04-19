@@ -1,5 +1,6 @@
 package com.example.weatherly.ui.home;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,12 +57,16 @@ public class HomeFragment extends Fragment {
         if (!UtilsKt.isInternetAvailable(requireContext()))
             homeViewModel.fetchSavedWeather();
         activityViewModel.observeCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
-            homeViewModel.fetchWeather(coordinates);
+            homeViewModel.fetchWeather(coordinates, activityViewModel.getIsSearched());
         });
 
         homeViewModel.getWeatherData().observe(getViewLifecycleOwner(), weatherResponse -> {
-            activityViewModel.updateLoc(weatherResponse.getName()+", "+ weatherResponse.getSys().getCountry());
-            binding.invalidateAll();
+            if (weatherResponse == null) {
+                showInternetDialog();
+            }else {
+                activityViewModel.updateLoc(weatherResponse.getName() + ", " + weatherResponse.getSys().getCountry());
+                binding.invalidateAll();
+            }
         });
 
         activityViewModel.getLocGeoCode().observe(getViewLifecycleOwner(), cityData -> {
@@ -70,6 +75,12 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void showInternetDialog() {
+        new AlertDialog.Builder(requireContext()).setTitle("No Internet Connection!")
+                .setMessage("Internet Connection is required to get Weather Data.")
+                .setPositiveButton("OK", (dialog, which)->{}).show();
     }
 
     @Override

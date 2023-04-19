@@ -23,24 +23,29 @@ class WeatherRepo(
 
     val API_KEY = "a77de1fd89a0ee9f0ed2c85e6a1c750b"
 
-    suspend fun getWeatherForLocation(latitude: Double, longitude: Double): WeatherResponse? {
+    suspend fun getWeatherForLocation(
+        latitude: Double,
+        longitude: Double,
+        isSearched: Boolean
+    ): WeatherResponse? {
         return if (context.isInternetAvailable()) {
             val articlesNw = fetchService.getWeatherData(latitude, longitude, API_KEY)
-             weatherDao.insertArticles(Data(Gson().toJson(articlesNw!!).toString()))
+            if (isSearched)
+                weatherDao.insertArticles(Data(Gson().toJson(articlesNw!!).toString()))
             return (articlesNw)
         } else {
-           getSavedWeather()
+            getSavedWeather()
         }
 
     }
 
-    suspend fun getSavedWeather() : WeatherResponse?{
+    suspend fun getSavedWeather(): WeatherResponse? {
         var dbItems = ""
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             dbItems = weatherDao.getSavedData()
         }
         Log.e("REpo ::", "DBItems = $dbItems")
-        if (dbItems.isNotEmpty())
+        if (dbItems!=null && dbItems.isNotEmpty())
             return Gson().fromJson(dbItems, WeatherResponse::class.java)
         else return null
     }

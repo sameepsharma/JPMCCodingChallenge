@@ -17,15 +17,15 @@ import java.util.*
 class HomeViewModel(val repo: WeatherRepo) : ViewModel() {
 
 
-    private val IMG_BASE_URL= "http://openweathermap.org/img/w/"
+    private val IMG_BASE_URL = "http://openweathermap.org/img/w/"
     private var weatherData = MutableLiveData<WeatherResponse>(WeatherResponse())
 
     val defaultText = "N/A"
 
-    fun fetchWeather(coordinates: Coordinates) {
+    fun fetchWeather(coordinates: Coordinates, isSearched : Boolean) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            weatherData.postValue(repo.getWeatherForLocation(coordinates.lat, coordinates.lon))
+            weatherData.postValue(repo.getWeatherForLocation(coordinates.lat, coordinates.lon, isSearched))
         }
 
     }
@@ -58,19 +58,16 @@ class HomeViewModel(val repo: WeatherRepo) : ViewModel() {
     fun getSunrise() = weatherData.value!!.sys.sunrise.timestampToTimeString()
     fun getSunset() = weatherData.value!!.sys.sunset.timestampToTimeString()
 
-    fun getWeatherIconURL() : String
-    {
+    fun getWeatherIconURL(): String {
 
         val list = weatherData.value!!.weather
         return if (list.isNotEmpty()) {
             Log.e("IMGURL = ", "$IMG_BASE_URL${weatherData.value!!.weather[0].icon}.png")
             "$IMG_BASE_URL${weatherData.value!!.weather[0].icon}.png"
 
-        }
-        else
+        } else
             ""
     }
-
 
 
 }

@@ -17,6 +17,8 @@ ActivityViewModel(private val repo: WeatherRepo) : ViewModel() {
 
     private val toolbarTitle = MutableLiveData<String>()
 
+    private val isSearched = MutableLiveData(false)
+
     fun observeTitle() = toolbarTitle
 
     fun updateTitle(title: String) = toolbarTitle.postValue(title)
@@ -46,6 +48,10 @@ ActivityViewModel(private val repo: WeatherRepo) : ViewModel() {
 
     fun getLocGeoCode() = locRevGeoCode
 
+    fun getIsSearched() = isSearched.value!!
+    fun setIsSearched(value : Boolean) = isSearched.postValue(value)
 }
+
+
 
 data class Coordinates(val lat: Double, val lon: Double)

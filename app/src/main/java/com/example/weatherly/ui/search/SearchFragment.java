@@ -60,7 +60,7 @@ public class SearchFragment extends Fragment {
                         , requireContext()))))
                         .get(SearchViewModel.class);
 
-        activityViewModel = new ViewModelProvider(getActivity()).get(ActivityViewModel.class);
+        activityViewModel = new ViewModelProvider(requireActivity()).get(ActivityViewModel.class);
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -68,6 +68,7 @@ public class SearchFragment extends Fragment {
         binding.etSearch.addTextChangedListener(watcher);
         binding.rvSearchResults.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         searchListAdapter = new SearchListAdapter(new CityResponse(),   (coordinates, cityName)->{
+            activityViewModel.setIsSearched(true);
             activityViewModel.updateLatlong(coordinates.getLat(), coordinates.getLon());
             activityViewModel.updateLoc(cityName);
             return Unit.INSTANCE;
