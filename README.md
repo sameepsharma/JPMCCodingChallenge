@@ -1,9 +1,9 @@
 # Android MVVM Architecture Sample (ViewModel + LiveData + Kotlin + Retrofit) - Weather App
 
-MVVM Architecture is one of the most popular and latest architecture to develop a maintainable and manageable codebase. We are developing a sample `Weater Forecast` Android App with `MVVM Architecture` using `Kotlin` language and `Retrofit` network calling library. **For simplification, I didn't use `Dagger`, `Coroutine` or `Rx` in this project.** After completion of this repository, if you want to learn about `Dagger` implementation; please check [this repository for MVVM and Dagger implementation](https://github.com/hasancse91/weather-app-android-mvvm-dagger).
+MVVM Architecture is one of the most popular and latest architecture to develop a maintainable and manageable codebase. We are developing a sample `Weater Forecast` Android App with `MVVM Architecture` using `Kotlin` language and `Retrofit` network calling library. **For simplification, I didn't use `Dagger` or `Rx` in this project.** After completion of this repository, if you want to learn about `Dagger` implementation; please check [this repository for MVVM and Dagger implementation](https://github.com/hasancse91/weather-app-android-mvvm-dagger).
 
 ### Prerequisites
-Basic `Kotlin` and knowledge of `HTTP` request by `Retrofit` library are required for this project.
+Basic `Kotlin`, `Coroutines` and knowledge of `HTTP` request by `Retrofit` library are required for this project.
 
 ### Project Description
 We will develop a weather forecast Android Application with MVVM architecture. The UI you can implement as per your imagination. There is a `Home Screen` with some weather information of your current location(USer Permission Required). There is a 'Search' option in the navigation drawer, where you can search for 'City' by its name and click on desired city to show its information. Then App will send request to Open Weather web API and show the weather information in the UI.
